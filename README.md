@@ -1,23 +1,58 @@
-# GeogebraLite
-[Go to Installation section](#-installation)
+# 📊 GeogebraLite
 
-## How it works?
-My library was created as a project for technical school [here](https://www.prumyslovkaliberec.cz/) In time writing this I am in third grade. 
-My library works in a way that it calculated around 10000 on set viewbox. Unfortunately my knowledge in maths so far wouldn't let me use better solution. There for the viewbox is set to max at width 200, because then the asymptote starts to break down. 
+A lightweight React graphing library made as a school project.  
+[📦 Go to Installation & Run](#-installation--run)  
+[📖 Go to How It Works](#how-it-works)  
+[🎛️ Go to Library Controller](#library-controller)  
+[🎨 Go to Picker](#picker)  
 
-My solution to detecting asymptotes works in a way that it always checks if last calculated point was on other side of the viewport. Which is not exactly good solution, but it was the only one I could think of. Because I can't derivate.
-### Library Controller
-Use this component if you want easy setup. It wants viewbox expresion and movability.
-(movability is not yet implemented). But when you put false user should not be able to move with viewbox.
-### Picker
-Use this component if you would like to build your very own libraryController. It wants expression (normalized) color and lastly expression data for partial computation. Last parameter is  optional.
-It returns an svg g element.
+---
 
-## 📦 Installation&Run
+## 📖 How It Works
 
-1. npm install graph-lib
-2. implement components to your code
-3. you are done
+This library was created as a personal project for technical school — [Průmyslovka Liberec](https://www.prumyslovkaliberec.cz/).  
+At the time of writing, I’m in my third year.
 
-## CSS variables
-There will be css variables at one day.
+The library works by calculating around **10,000 points** within a set SVG viewbox to plot graphs. Unfortunately, my current math knowledge doesn't allow for more advanced solutions (like using derivatives), so the **viewbox width is capped at 200** — otherwise, asymptotes start causing rendering issues.
+
+### ⚠️ Asymptote Detection
+
+My method for detecting asymptotes checks whether the last calculated point was on the opposite side of the viewport from the current one. It's a basic but workable solution given the limitations — improvements are on the roadmap.
+
+---
+
+## 🎛️ Library Controller
+
+Use this component for a simple setup.  
+It requires:
+- `viewbox expression`
+- `movability` (not yet implemented — if set to `false`, users shouldn't be able to move the viewbox, though this feature is pending.)
+
+---
+
+## 🎨 Picker
+
+Use this component if you want to build your own custom controller.  
+It requires:
+- `expression` (normalized)
+- `color`
+- `expression data` (for partial computation — optional)
+
+It returns an SVG `<g>` element containing your graph.
+
+---
+
+## 📦 Installation & Run
+
+1. `npm install graph-lib`
+2. Import components into your code.
+3. Done!
+
+---
+
+## 🎨 CSS Variables
+
+**Coming soon** — customizable CSS variables for styling.
+
+---
+
