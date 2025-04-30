@@ -1,10 +1,18 @@
 # 📊 GeogebraLite
 
 A lightweight React graphing library made as a school project.  
+[When to use?](#when-to-use)
+[📖 Go to How It Works](#-how-it-works)  
+[Library Controller](#library-controller)
+[🎨 Go to Picker](#-picker)  
 [📦 Go to Installation & Run](#-installation--run)  
-[📖 Go to How It Works](#how-it-works)  
-[🎛️ Go to Library Controller](#library-controller)  
-[🎨 Go to Picker](#picker)  
+---
+## :accessibility: When to use?
+✅ when you want to setup smaller graph function tool 
+
+❌ When you wanna precise efficient tool to calculate huge viewports
+
+
 
 ---
 
