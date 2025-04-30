@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState, useCallback, useMemo } from "react"
 
 import  { parseExpression }  from "../utils/ParseExpression"
 import  generateGrid  from "../utils/generateGrid";
-import { ViewBox } from "../types/types"; 
-import useDebounce from "../CustomHooks/useDebounce";
 
+import useDebounce from "../CustomHooks/useDebounce";
+import "../../App.css";
 import "./LibraryController.css";
-import "../styles/Library.css";
+import "../Library.css";
 // Define the ViewBox type
 
-import { FunctionData, reqs } from "../types/types";
+import { FunctionData, reqs, ViewBox } from '../types/types';
 import Picker from "../Picker/Picker";
 let LibraryController = ({
     reqs,
@@ -244,11 +244,18 @@ useEffect(() => {
       const svg = svgRef.current;
   
       if (!svg) return;
-  
-      svg.addEventListener("wheel", handleWheel, { passive: false });
-      svg.addEventListener("touchstart", handleTouchStart, { passive: false });
-      svg.addEventListener("touchmove", handleTouchMove, { passive: false });
-      svg.addEventListener("touchend", handleTouchEnd);
+      if (moveable) {
+        svg.addEventListener("wheel", handleWheel, { passive: false });
+        svg.addEventListener("touchstart", handleTouchStart, { passive: false });
+        svg.addEventListener("touchmove", handleTouchMove, { passive: false });
+        svg.addEventListener("touchend", handleTouchEnd);
+      } else {
+        svg.removeEventListener("wheel", handleWheel);
+        svg.removeEventListener("touchstart", handleTouchStart);
+        svg.removeEventListener("touchmove", handleTouchMove);
+        svg.removeEventListener("touchend", handleTouchEnd);
+      }
+     
       return () => {
         svg.removeEventListener("wheel", handleWheel);
         svg.removeEventListener("touchstart", handleTouchStart);
