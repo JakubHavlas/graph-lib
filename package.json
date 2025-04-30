@@ -1,7 +1,8 @@
 {
-  "private": true,
-  "name": "graph-lib",
+ 
+  "name": "@jakub-havlas/graph-lib",
   "version": "1.0.0",
+  
   "description": "A reusable React graph component library.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
