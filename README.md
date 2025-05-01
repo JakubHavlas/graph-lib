@@ -2,9 +2,13 @@
 
 A lightweight React graphing library made as a school project.  
 [When to use?](#when-to-use)
+
 [📖 Go to How It Works](#-how-it-works)  
+
 [Library Controller](#library-controller)
+
 [🎨 Go to Picker](#-picker)  
+
 [📦 Go to Installation & Run](#-installation--run)  
 ---
 ## :accessibility: When to use?
@@ -33,18 +37,65 @@ My method for detecting asymptotes checks whether the last calculated point was 
 
 Use this component for a simple setup.  
 It requires:
-- `viewbox expression`
-- `movability` (not yet implemented — if set to `false`, users shouldn't be able to move the viewbox, though this feature is pending.)
+- `reqs` array of valid expressions and their colors
+```ts
+export type reqs = {
+  expression: string;
+  color: string;
+};
+```
+optional params:
+- `params` default viewbox it doesn't really matter if movable is set to true.
+- `moveable` if user can move and zoom the svg
+- `minWidth` smallest possible viewbox width
+- `maxWidth` highest possible viewbox width
+- `displayCoords` if you want to display coords of mouse on hovering
+- `displayGrid` if you wanna display all the helping lines
+here is the function header and all the defaul values.
+```ts
+let LibraryController = ({
+  reqs,
+  params = { x: -2, y: -2, width: 4, height: 4 },
+  moveable = true,
+  minWidth = 0.001,
+  maxWidth = 200,
+  displayCoords = true,
+  displayGrid = true,
+}: {
+  reqs: reqs[];
+  params?: ViewBox;
+  moveable?: boolean;
+  minWidth?: number;
+  maxWidth?: number;
+  displayCoords?: boolean;
+  displayGrid?: boolean;
+}) => { ... }
 
+```
 ---
 
 ## 🎨 Picker
 
 Use this component if you want to build your own custom controller.  
 It requires:
-- `expression` (normalized)
-- `color`
-- `expression data` (for partial computation — optional)
+- `FunctionData[]` patharray is optional
+```ts
+export type FunctionData = {
+  id: number;
+  color: string;
+  expression: string[];
+  pathArray: coords[][];
+};
+```
+```ts
+export type coords = {
+  x: number;
+  y: number;
+};
+```
+Optional:
+- `viewbox`
+
 
 It returns an SVG `<g>` element containing your graph.
 
@@ -53,14 +104,73 @@ It returns an SVG `<g>` element containing your graph.
 ## 📦 Installation & Run
 
 1. `npm install graph-lib`
-2. Import components into your code.
-3. Done!
+2. Import GraphLibrary into your code. 
+```ts
+export type reqs = {
+  expression: string;
+  color: string;
+};
+```
+3. fill ^ this is the import data. 
+4. Done!
 
 ---
 
 ## 🎨 CSS Variables
 
-**Coming soon** — customizable CSS variables for styling.
+This library uses CSS custom properties (variables) to easily customize the appearance of graphs and UI elements. You can override these variables in your own stylesheets to match your project's design system or preferences.
 
+```css
+
+:root {
+  --background-color: #e2e2e2;
+  --text-color: #121212;
+  --font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --line-height: 1.5;
+  --font-weight: 400;
+  --color-scheme: light dark;
+  --color: rgba(0, 0, 0, 0.87); 
+  --font-synthesis: none;
+  --text-rendering: optimizeLegibility;
+  --webkit-font-smoothing: antialiased;
+  --moz-osx-font-smoothing: grayscale;
+  --hover-color: #1d24af;
+  --input-background-color: #b9b9b9;
+  
+  font-family: var(--font-family);
+  line-height: var(--line-height);
+  font-weight: var(--font-weight);
+  color: var(--color);
+  background-color: var(--background-color-light);
+  color-scheme: var(--color-scheme);
+  font-synthesis: var(--font-synthesis);
+  text-rendering: var(--text-rendering);
+  -webkit-font-smoothing: var(--webkit-font-smoothing);
+  -moz-osx-font-smoothing: var(--moz-osx-font-smoothing);
+
+
+  --graph-background-color: #f0f0f0;
+  --graph-text-color: #000000;
+  --graph-axes-color: #000000;
+  --graph-HelpLines-color: #d0d0d0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+      --graph-HelpLines-color: #504d4d;
+      --input-background-color: #414141;
+      --background-color: #242424;
+      --text-color: #e2e2e2;
+      --color: rgba(255, 255, 255, 0.87); 
+      --graph-axes-color: #ffffff;
+      --graph-text-color: #ffffff;
+      background-color: var(--background-color);
+      color: var(--text-color);
+  }
+}
+
+
+
+```
 ---
 
