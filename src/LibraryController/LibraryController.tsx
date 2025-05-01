@@ -4,9 +4,9 @@ import  { parseExpression }  from "../utils/ParseExpression"
 import  generateGrid  from "../utils/generateGrid";
 
 import useDebounce from "../CustomHooks/useDebounce";
-import "../../App.css";
+
 import "./LibraryController.css";
-import "../Library.css";
+import "../styles/Library.css";
 // Define the ViewBox type
 
 import { FunctionData, reqs, ViewBox } from '../types/types';
