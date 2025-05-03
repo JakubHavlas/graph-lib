@@ -6,13 +6,15 @@ import React, {
   useMemo,
 } from "react";
 
-import { parseExpression } from "../utils/ParseExpression";
+
 import generateGrid from "../utils/generateGrid";
 
 import useDebounce from "../CustomHooks/useDebounce";
 import "../../App.css";
 import "./LibraryController.css";
 import "../Library.css";
+import ProcessInput from "../utils/ProcessInput";
+import parseExpression from "../utils/NewParseExpression";
 // Define the ViewBox type
 
 import { FunctionData, reqs, ViewBox } from "../types/types";
@@ -35,9 +37,33 @@ let LibraryController = ({
   displayGrid?: boolean;
 }) => {
   const [reqsData, setReqsData] = useState<reqs[]>(reqs);
-
+ 
   useEffect(() => {
-    setReqsData(reqs);
+    let ans: FunctionData[] = [];
+      
+   
+   
+    for (let i = 0; i < reqs.length; i++) {
+      const parsedExpr = parseExpression(reqs[i].expression);
+      
+     
+      ans.push({
+        id: i,
+        expression: parsedExpr,
+        color: reqs[i].color,
+        pathArray: [],
+      });
+    }
+  
+    const processedData = ProcessInput(ans.map((item) => item.expression));
+    
+    const updatedReqsData = processedData.map((data, index) => ({
+      expression: data.join(" "), // Convert string[] to string
+      color: reqs[index]?.color || "#000",
+    }));
+  
+    setReqsData(updatedReqsData);
+    
   }, [reqs]);
 
   //data normalization
@@ -117,6 +143,9 @@ let LibraryController = ({
   };
 
   const handleTouchMove = (e: TouchEvent) => {
+    //doesn't use max min width and height for now
+    //whyyyyyyy
+
     if (!svgRef.current) return;
 
     if (e.touches.length === 1 && isTouchPanning.current) {
