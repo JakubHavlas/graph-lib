@@ -10,15 +10,16 @@ import React, {
 import generateGrid from "../utils/generateGrid";
 
 import useDebounce from "../CustomHooks/useDebounce";
-import "../../App.css";
+
 import "./LibraryController.css";
-import "../Library.css";
+import "../styles/Library.css";
 import ProcessInput from "../utils/ProcessInput";
 import parseExpression from "../utils/NewParseExpression";
 // Define the ViewBox type
 
 import { FunctionData, reqs, ViewBox } from "../types/types";
 import Picker from "../Picker/Picker";
+import DownloadButton from "../DowlandButton/DowlandButton";
 let LibraryController = ({
   reqs,
   params = { x: -2, y: -2, width: 4, height: 4 },
@@ -27,6 +28,7 @@ let LibraryController = ({
   maxWidth = 200,
   displayCoords = true,
   displayGrid = true,
+  downloadable = true
 }: {
   reqs: reqs[];
   params?: ViewBox;
@@ -35,6 +37,7 @@ let LibraryController = ({
   maxWidth?: number;
   displayCoords?: boolean;
   displayGrid?: boolean;
+  downloadable?: boolean;
 }) => {
   const [reqsData, setReqsData] = useState<reqs[]>(reqs);
  
@@ -326,9 +329,14 @@ let LibraryController = ({
   const strokeWidth = getStrokeWidth(viewBox);
 
   const grid = generateGrid(viewBox);
+
+ 
+  
+
   return (
     <div className="svg-section">
       <svg
+        id="Graph"
         ref={svgRef}
         className="library-svg"
         viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
@@ -383,7 +391,7 @@ let LibraryController = ({
         </g>
         <g
           className="axis-labels"
-          fontSize={0.5 * (viewBox.width / 30)}
+          fontSize={ 0.5 * (viewBox.width / 30) }
           textAnchor="middle"
         >
           {grid.labels.map((label, i) => (
@@ -415,6 +423,13 @@ let LibraryController = ({
         <div className="svg-overlay">
           <span>Calculating...</span>
         </div>
+      )}
+      {}
+      {downloadable && (
+        <div className="download-button-container">
+          <DownloadButton SvgId="Graph" />
+        </div>
+        
       )}
       {mousePosRef.current && displayCoords && (
         <div className="mouse-coords">

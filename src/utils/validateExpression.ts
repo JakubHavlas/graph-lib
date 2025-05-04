@@ -4,7 +4,7 @@ import validateSyntax
 import ParseExpression from "./NewParseExpression";
 
 
-export function validateExpression(
+ function validateExpression(
   input: string,
 
 ): { valid: boolean; message?: string; } {
