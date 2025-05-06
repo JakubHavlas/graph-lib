@@ -18,7 +18,7 @@
   line-height: var(--line-height);
   font-weight: var(--font-weight);
   color: var(--color);
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
   color-scheme: var(--color-scheme);
   font-synthesis: var(--font-synthesis);
   text-rendering: var(--text-rendering);

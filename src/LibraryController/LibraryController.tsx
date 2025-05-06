@@ -23,7 +23,7 @@ import DownloadButton from "../DowlandButton/DowlandButton";
 let LibraryController = ({
   reqs,
   params = { x: -2, y: -2, width: 4, height: 4 },
-  moveable = true,
+  moveble = true,
   minWidth = 0.001,
   maxWidth = 200,
   displayCoords = true,
@@ -32,7 +32,7 @@ let LibraryController = ({
 }: {
   reqs: reqs[];
   params?: ViewBox;
-  moveable?: boolean;
+  moveble?: boolean;
   minWidth?: number;
   maxWidth?: number;
   displayCoords?: boolean;
@@ -159,7 +159,7 @@ let LibraryController = ({
         (viewBox.height / svgRef.current.clientHeight);
       
       setViewBox((prev) => {
-        if (!moveable) return prev;
+        if (!moveble) return prev;
         let maxX = maxWidth / 2;
         let minX = (maxWidth / 2) * -1;
         
@@ -268,7 +268,7 @@ let LibraryController = ({
       (viewBox.height / svgRef.current.clientHeight);
 
     setViewBox((prev) => {
-      if (!moveable) return viewBox;
+      if (!moveble) return viewBox;
       let newX = prev.x - dx;
       let newY = prev.y - dy;
 
