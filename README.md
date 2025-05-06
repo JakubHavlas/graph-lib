@@ -12,7 +12,7 @@ A lightweight React graphing library made as a school project.
 [📦 Go to Installation & Run](#-installation--run)  
 
 ---
-## :accessibility: When to use?
+## When to use
 ✅ when you want to setup smaller graph function tool, best for static graphs or when you don't want to spend much time
 
 ❌ when you need a precise and efficient tool for large-scale calculations
@@ -35,7 +35,7 @@ My method for detecting asymptotes checks whether the last calculated point was 
 My library works with expressions in array from, see NewParseExpression how they are correctly parsed. Also it supports variables, see ProcessInput on how it handles them. 
 ---
 
-## 🎛️ Library Controller
+## Library Controller
 
 Use this component for a simple setup.  
 It requires:
