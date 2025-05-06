@@ -1,4 +1,5 @@
 export const evaluator = (expression: string[], x: number) => {
+  
   //expression = insertImplicitMultiplication(expression);
   expression = expression.map((item) => {
     if (item === "x") return x.toString();
@@ -41,7 +42,6 @@ while (foundParen) {
     i++;
   }
 }
-
 
 let foundAbs = true;
 
@@ -92,12 +92,13 @@ while (foundAbs) {
         }
       }
     }
-  
+
 
     //ai
     // How does math evamluators work?
     for (const { symbol, fn } of OPERATORS) {
-      for (let i = expression.length - 1; i >= 0; i--) {
+      
+      for (let i =  0; i < expression.length; i++) {
         if (expression[i] === symbol) {
           const left = parseFloat(expression[i - 1]);
           const right = parseFloat(expression[i + 1]);
@@ -105,15 +106,21 @@ while (foundAbs) {
           if (!isNaN(left) && !isNaN(right)) {
             const result = fn(left, right);
             expression[i - 1] = result.toString();
-            expression.splice(i, 2); // remove operator and right operand
+            expression.splice(i, 2); 
+            i = i-2; 
           }
         }
       }
     }
-  
+    
     return expression[0];
   };
 
+/*
+  const postfixOperators = [
+    { symbol: "!", fn: (a: number) => factorial(a) },
+  ];
+  */
   const OPERATORS = [
     { symbol: "^", fn: (a: number, b: number) => Math.pow(a, b) },
     { symbol: "*", fn: (a: number, b: number) => a * b },
@@ -129,24 +136,23 @@ while (foundAbs) {
     { symbol: "log", fn: (a: number) => Math.log10(a) },
     { symbol: "cotan", fn: (a: number) => 1/Math.tan(a) },
     { symbol: "sqrt", fn: (a: number) => Math.sqrt(a) },
+    { symbol: "abs", fn: (a: number) => Math.abs(a) },
+    { symbol: "exp", fn: (a: number) => Math.exp(a) },
+    { symbol: "ln", fn: (a: number) => Math.log(a) },
+    { symbol: "log2", fn: (a: number) => Math.log2(a) },
+    { symbol: "log10", fn: (a: number) => Math.log10(a) },
   ];
   const constants = [
-    { symbol: "pi", value: Math.PI },
+    { symbol: "π", value: Math.PI },
     { symbol: "e", value: Math.E },
-    { symbol: "phi", value: (1 + Math.sqrt(5)) / 2 },
-    { symbol: "tau", value: 2 * Math.PI },
-    { symbol: "gamma", value: 0.5772156649 },
-    { symbol: "catalan", value: 0.9159655941 },
-    { symbol: "apery", value: 1.2020569032 },
-    { symbol: "eulerMascheroni", value: 0.5772156649 },
-    { symbol: "goldenRatioConjugate", value: (Math.sqrt(5) - 1) / 2 },
   ];
   
-
 /*
-  const variables = [
-    { symbol: "x", value: 0 },
-    { symbol: "y", value: 0 },
-    { symbol: "z", value: 0 },
-  ];
-*/
+let factorial: (n: number) => number = (n: number) => {
+
+    if (n < 0) return NaN; 
+   for (let i = 1; i <= n; i++) {
+        n = n * i;
+    }
+  
+}*/
