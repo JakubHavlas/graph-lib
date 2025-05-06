@@ -13,11 +13,9 @@ A lightweight React graphing library made as a school project.
 
 ---
 ## :accessibility: When to use?
-✅ when you want to setup smaller graph function tool 
+✅ when you want to setup smaller graph function tool, best for static graphs or when you don't want to spend much time
 
-❌ When you wanna precise efficient tool to calculate huge viewports
-
-
+❌ when you need a precise and efficient tool for large-scale calculations
 
 ---
 
@@ -32,13 +30,16 @@ The library works by calculating around **10,000 points** within a set SVG viewb
 
 My method for detecting asymptotes checks whether the last calculated point was on the opposite side of the viewport from the current one. It's a basic but workable solution given the limitations — improvements are on the roadmap.
 
+### ProcessInput & ParseExpression
+
+My library works with expressions in array from, see NewParseExpression how they are correctly parsed. Also it supports variables, see ProcessInput on how it handles them. 
 ---
 
 ## 🎛️ Library Controller
 
 Use this component for a simple setup.  
 It requires:
-- `reqs` array of valid expressions and their colors
+- `reqs` array of valid expressions and their colors or variables. From 3.0 this library is able to handle notation like "a=3", "ax"
 ```ts
 export type reqs = {
   expression: string;
@@ -46,12 +47,12 @@ export type reqs = {
 };
 ```
 optional params:
-- `params` default viewbox it doesn't really matter if movable is set to true.
-- `moveable` if user can move and zoom the svg
+- `params` default viewbox.
+- `moveable` if user can move and zoom the svg - this typoe will be fixed soon moveable x moveble
 - `minWidth` smallest possible viewbox width
 - `maxWidth` highest possible viewbox width
 - `displayCoords` if you want to display coords of mouse on hovering
-- `displayGrid` if you wanna display all the helping lines
+- `displayGrid` if you want to display all the helping lines
 here is the function header and all the defaul values.
 ```ts
 let LibraryController = ({
@@ -98,7 +99,7 @@ Optional:
 - `viewbox`
 
 
-It returns an SVG `<g>` element containing your graph.
+It returns an SVG `<g>` element containing your graph. Use it as element in your svg, this return only return path elemet/s
 
 ---
 
@@ -112,7 +113,7 @@ export type reqs = {
   color: string;
 };
 ```
-3. fill ^ this is the import data. 
+3. Fill in the reqs array with your desired functions and their colors.
 4. Done!
 
 ---
@@ -142,7 +143,7 @@ This library uses CSS custom properties (variables) to easily customize the appe
   line-height: var(--line-height);
   font-weight: var(--font-weight);
   color: var(--color);
-  background-color: var(--background-color-light);
+  background-color: var(--background-color-light); 
   color-scheme: var(--color-scheme);
   font-synthesis: var(--font-synthesis);
   text-rendering: var(--text-rendering);
