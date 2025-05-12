@@ -9,9 +9,9 @@ import React, {
 import generateGrid from "../utils/generateGrid";
 
 import useDebounce from "../CustomHooks/useDebounce";
-import "../../App.css";
+
 import "./LibraryController.css";
-import "../Library.css";
+import "../styles/Library.css";
 import ProcessInput from "../utils/ProcessInput";
 import parseExpression from "../utils/NewParseExpression";
 // Define the ViewBox type
