@@ -6,13 +6,12 @@ import React, {
   useMemo,
 } from "react";
 
-
 import generateGrid from "../utils/generateGrid";
 
 import useDebounce from "../CustomHooks/useDebounce";
-
+import "../../App.css";
 import "./LibraryController.css";
-import "../styles/Library.css";
+import "../Library.css";
 import ProcessInput from "../utils/ProcessInput";
 import parseExpression from "../utils/NewParseExpression";
 // Define the ViewBox type
@@ -23,16 +22,16 @@ import DownloadButton from "../DowlandButton/DowlandButton";
 let LibraryController = ({
   reqs,
   params = { x: -2, y: -2, width: 4, height: 4 },
-  moveble = true,
+  moveable = true,
   minWidth = 0.001,
   maxWidth = 200,
   displayCoords = true,
   displayGrid = true,
-  downloadable = true
+  downloadable = true,
 }: {
   reqs: reqs[];
   params?: ViewBox;
-  moveble?: boolean;
+  moveable?: boolean;
   minWidth?: number;
   maxWidth?: number;
   displayCoords?: boolean;
@@ -40,16 +39,13 @@ let LibraryController = ({
   downloadable?: boolean;
 }) => {
   const [reqsData, setReqsData] = useState<reqs[]>(reqs);
- 
+
   useEffect(() => {
     let ans: FunctionData[] = [];
-      
-   
-   
+
     for (let i = 0; i < reqs.length; i++) {
       const parsedExpr = parseExpression(reqs[i].expression);
-      
-     
+
       ans.push({
         id: i,
         expression: parsedExpr,
@@ -57,16 +53,17 @@ let LibraryController = ({
         pathArray: [],
       });
     }
-  
+
     const processedData = ProcessInput(ans.map((item) => item.expression));
-    
-    const updatedReqsData = processedData.map((data, index) => ({
-      expression: data.join(" "), // Convert string[] to string
-      color: reqs[index]?.color || "#000",
-    }));
-  
+
+    const updatedReqsData = processedData
+      ? processedData.map((data, index) => ({
+          expression: data.join(" "), // Convert string[] to string
+          color: reqs[index]?.color || "#000",
+        }))
+      : [];
+
     setReqsData(updatedReqsData);
-    
   }, [reqs]);
 
   //data normalization
@@ -146,8 +143,6 @@ let LibraryController = ({
   };
 
   const handleTouchMove = (e: TouchEvent) => {
-    
-
     if (!svgRef.current) return;
 
     if (e.touches.length === 1 && isTouchPanning.current) {
@@ -157,24 +152,24 @@ let LibraryController = ({
       const dy =
         (e.touches[0].clientY - startPoint.current.y) *
         (viewBox.height / svgRef.current.clientHeight);
-      
+
       setViewBox((prev) => {
-        if (!moveble) return prev;
+        if (!moveable) return prev;
         let maxX = maxWidth / 2;
         let minX = (maxWidth / 2) * -1;
-        
+
         let aspectRatio = svgRef.current
           ? svgRef.current.clientHeight / svgRef.current.clientWidth
-          : 1; 
+          : 1;
         let maxY = (maxWidth * aspectRatio) / 2;
         let minY = (maxWidth * aspectRatio) / -2;
-       
+
         let newX = prev.x - dx;
         let newY = prev.y - dy;
-        console.log( newY, maxY - prev.height);
+        console.log(newY, maxY - prev.height);
         newX = Math.max(minX, Math.min(maxX - prev.width, newX));
         newY = Math.max(minY, Math.min(maxY - prev.height, newY));
-        
+
         return {
           ...prev,
           x: newX,
@@ -268,7 +263,7 @@ let LibraryController = ({
       (viewBox.height / svgRef.current.clientHeight);
 
     setViewBox((prev) => {
-      if (!moveble) return viewBox;
+      if (!moveable) return viewBox;
       let newX = prev.x - dx;
       let newY = prev.y - dy;
 
@@ -349,9 +344,6 @@ let LibraryController = ({
 
   const grid = generateGrid(viewBox);
 
- 
-  
-
   return (
     <div className="svg-section">
       <svg
@@ -370,67 +362,62 @@ let LibraryController = ({
           width={viewBox.width}
           height={viewBox.height}
         />
-    {displayGrid && (
-      <g>
-        <g className="helpingLines" strokeWidth={strokeWidth}>
-          {grid.vertical.map((x) => (
-            <line
-              key={`v-${x}`}
-              x1={x}
-              y1={viewBox.y}
-              x2={x}
-              y2={viewBox.y + viewBox.height}
-            />
-          ))}
-          {grid.horizontal.map((y) => (
-            <line
-              key={`h-${y}`}
-              y1={y}
-              x1={viewBox.x}
-              y2={y}
-              x2={viewBox.x + viewBox.width}
-            />
-          ))}
-        </g>
-        <g className="axes" strokeWidth={strokeWidth}>
-          <line
-            x1={viewBox.x}
-            y1={0}
-            x2={viewBox.x + viewBox.width}
-            y2={0}
-            strokeWidth={strokeWidth}
-          />
-          <line
-            x1={0}
-            y1={viewBox.y}
-            x2={0}
-            y2={viewBox.y + viewBox.height}
-            strokeWidth={strokeWidth}
-          />
-        </g>
-        <g
-          className="axis-labels"
-          fontSize={ 0.5 * (viewBox.width / 30) }
-          textAnchor="middle"
-        >
-          {grid.labels.map((label, i) => (
-            <text
-              key={`label-${i}`}
-              x={label.x}
-              y={label.y}
-              style={{ pointerEvents: "none", userSelect: "none" }}
+        {displayGrid && (
+          <g>
+            <g className="helpingLines" strokeWidth={strokeWidth}>
+              {grid.vertical.map((x) => (
+                <line
+                  key={`v-${x}`}
+                  x1={x}
+                  y1={viewBox.y}
+                  x2={x}
+                  y2={viewBox.y + viewBox.height}
+                />
+              ))}
+              {grid.horizontal.map((y) => (
+                <line
+                  key={`h-${y}`}
+                  y1={y}
+                  x1={viewBox.x}
+                  y2={y}
+                  x2={viewBox.x + viewBox.width}
+                />
+              ))}
+            </g>
+            <g className="axes" strokeWidth={strokeWidth}>
+              <line
+                x1={viewBox.x}
+                y1={0}
+                x2={viewBox.x + viewBox.width}
+                y2={0}
+                strokeWidth={strokeWidth}
+              />
+              <line
+                x1={0}
+                y1={viewBox.y}
+                x2={0}
+                y2={viewBox.y + viewBox.height}
+                strokeWidth={strokeWidth}
+              />
+            </g>
+            <g
+              className="axis-labels"
+              fontSize={0.5 * (viewBox.width / 30)}
+              textAnchor="middle"
             >
-              {label.text}
-            </text>
-          ))}
-        </g>
-      </g>
-    )}
-       
-
-       
-
-     
+              {grid.labels.map((label, i) => (
+                <text
+                  key={`label-${i}`}
+                  x={label.x}
+                  y={label.y}
+                  style={{ pointerEvents: "none", userSelect: "none" }}
+                >
+                  {label.text}
+                </text>
+              ))}
+            </g>
+          </g>
+        )}
 
         <g fill="none" stroke="black" strokeWidth={strokeWidth * 3}>
           {viewBox === debouncedViewBox ? (
@@ -448,7 +435,6 @@ let LibraryController = ({
         <div className="download-button-container">
           <DownloadButton SvgId="Graph" />
         </div>
-        
       )}
       {mousePosRef.current && displayCoords && (
         <div className="mouse-coords">
