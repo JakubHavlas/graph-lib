@@ -44,7 +44,7 @@ const computeFullGraph = (expression: string[], viewBox: ViewBox,  color?: strin
     if ( ans > threshold) {
       
   
-      localStep = viewBox.width / 2000;
+      localStep = viewBox.width / 200000;
     }
     if (y > -viewBox.y +1) continue
     if (y < viewBox.y - 1 ) continue;
@@ -149,7 +149,7 @@ const computePartialGraph = (
     if ( ans > threshold) {
       
   
-      localStep = viewBox.width / 3000;
+      localStep = viewBox.width / 200000;
     }
 
     recentPoints.push({ x, y });
