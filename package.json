@@ -1,6 +1,6 @@
 {
   "name": "@jakub-havlas/graph-lib",
-  "version": "3.3.3",
+  "version": "3.3.4",
   "description": "A reusable React graph component library.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",

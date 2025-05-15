@@ -48,15 +48,10 @@ const computeFullGraph = (
       recentPoints.shift(); // remove the oldest point
     }
     */
-<<<<<<< HEAD
     if ( ans > threshold) {
       
   
       localStep = viewBox.width / 200000;
-=======
-    if (ans > threshold) {
-      localStep = viewBox.width / 2000;
->>>>>>> 1222353b15c36237720b4784f6ffab4875ba43e5
     }
     if (y > -viewBox.y + 1) continue;
     if (y < viewBox.y - 1) continue;
@@ -161,15 +156,10 @@ const computePartialGraph = (
 
       localStep = viewBox.width / 100;
     }*/
-<<<<<<< HEAD
     if ( ans > threshold) {
       
   
       localStep = viewBox.width / 200000;
-=======
-    if (ans > threshold) {
-      localStep = viewBox.width / 3000;
->>>>>>> 1222353b15c36237720b4784f6ffab4875ba43e5
     }
 
     recentPoints.push({ x, y });
