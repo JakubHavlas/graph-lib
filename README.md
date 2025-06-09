@@ -33,6 +33,7 @@ My method for detecting asymptotes checks whether the last calculated point was 
 ### ProcessInput & ParseExpression
 
 My library works with expressions in array from, see NewParseExpression how they are correctly parsed. Also it supports variables, see ProcessInput on how it handles them. 
+
 ---
 
 ## Library Controller
