@@ -139,8 +139,13 @@ This library uses CSS custom properties (variables) to easily customize the appe
   --moz-osx-font-smoothing: grayscale;
   --hover-color: #1d24af;
   --input-background-color: #b9b9b9;
-  
-  font-family: var(--font-family);
+  --graph-background-color: #f0f0f0;
+  --graph-text-color: #000000;
+  --graph-axes-color: #000000;
+  --graph-HelpLines-color: #d0d0d0;
+ 
+
+ font-family: var(--font-family);
   line-height: var(--line-height);
   font-weight: var(--font-weight);
   color: var(--color);
@@ -151,11 +156,6 @@ This library uses CSS custom properties (variables) to easily customize the appe
   -webkit-font-smoothing: var(--webkit-font-smoothing);
   -moz-osx-font-smoothing: var(--moz-osx-font-smoothing);
 
-
-  --graph-background-color: #f0f0f0;
-  --graph-text-color: #000000;
-  --graph-axes-color: #000000;
-  --graph-HelpLines-color: #d0d0d0;
 }
 
 @media (prefers-color-scheme: dark) {
